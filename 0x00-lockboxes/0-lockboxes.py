@@ -5,13 +5,12 @@
 def canUnlockAll(boxes):
     ''' If all boxes can be opened then pass if not then fail '''
     avKeys = [0]
-    # Will go through keys in boxes and add any new keys into the avKeys arrray.
+    # Will go through keys in boxes and add any new keys
     for x in avKeys:
         for key in boxes[x]:
-            # Will add key to list if it is not in list and less than number of boxes
+            # Will add key to list if it is not in list
             if key not in avKeys and key < len(boxes):
                 avKeys.append(key)
-
 
     x = 0
     while x < len(boxes):
