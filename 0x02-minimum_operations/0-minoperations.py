@@ -17,12 +17,11 @@ def minOperations(n):
 
     while H <= n:
         if n % H == 0:
-            '''
-            is the n divisable by H
-            ''' 
+            '''is the n divisable by H'''
             n = n / H
             result += H
         else:
             H += 1
 
     return result
+    
