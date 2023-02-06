@@ -24,4 +24,3 @@ def minOperations(n):
             H += 1
 
     return result
-    
