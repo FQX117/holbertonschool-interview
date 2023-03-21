@@ -1,51 +1,47 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "lists.h"
 
-/* Definition for singly-linked list */
-struct ListNode {
-    int val;
-    struct ListNode *next;
-};
-
-typedef struct ListNode listint_t;
-
-/* Function to check if a linked list is a palindrome */
-int is_palindrome(listint_t** head)
+/**
+ * check_recursively - Recursively moves the pointers to check if palindrome
+ * @start: Will move from the start of the list
+ * @end: Will move from the end of the list
+ *
+ * Return: Either 0 or 1 depending if is a palindrome
+ */
+int check_recursively(listint_t **start, listint_t *end)
 {
-    if (*head == NULL) {
-        /* An empty list is considered a palindrome */
-        return 1;
-    }
+	int check;
 
-    /* Find the middle node of the linked list */
-    listint_t* slow = *head;
-    listint_t* fast = *head;
-    while (fast != NULL && fast->next != NULL) {
-        slow = slow->next;
-        fast = fast->next->next;
-    }
+	if (end == NULL)
+		return (1);
 
-    /* Reverse the second half of the linked list */
-    listint_t* prev = NULL;
-    listint_t* curr = slow;
-    while (curr != NULL) {
-        listint_t* next = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = next;
-    }
+	check = check_recursively(start, end->next);
 
-    /* Compare the first half of the linked list with the reversed second half */
-    listint_t* p1 = *head;
-    listint_t* p2 = prev;
-    while (p2 != NULL) {
-        if (p1->val != p2->val) {
-            return 0;
-        }
-        p1 = p1->next;
-        p2 = p2->next;
-    }
+	if (check == 0)
+		return (0);
 
-    /* If we reach this point, the linked list is a palindrome */
-    return 1;
+	if ((*start)->n == end->n)
+		check = 1;
+	else
+		check = 0;
+
+	*start = (*start)->next;
+
+	return (check);
+}
+
+/**
+ * is_palindrome - Checks if a singly linked list is a palindrome
+ * @head: The start of the linked list
+ *
+ * Return: 1 if is palindrome, 0 if it is not
+ */
+int is_palindrome(listint_t **head)
+{
+	listint_t **start = head;
+	listint_t *end = *head;
+
+	if (*head == NULL)
+		return (1);
+
+	return (check_recursively(start, end));
 }
